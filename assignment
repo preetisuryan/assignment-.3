@@ -1,0 +1,239 @@
+<html >
+<head>
+
+       <!--external javascript-->
+<script typ="text/javascript" src="validation.js" >
+</script>
+
+</head>
+<body>
+
+<center>
+<h1>Demo Registration Form</h1>
+<form name="form1"  method="post" action="success.html">
+ 
+<table border='0'>
+ <tr>
+  <td><LABEL for="firstname">First Name:<sup style="color:#F00">*</sup> </LABEL></td>
+         <td><INPUT type="text" id="firstname"></td>
+ </tr>
+ <tr>
+  <td><LABEL for="lastname">Last Name:<sup style="color:#F00">*</sup> </LABEL></td>
+  <td><INPUT type="text" id="lastname"></td>
+ </tr>
+     
+ <tr>
+   <td><LABEL for="gender">Gender:<sup style="color:#F00">*</sup> </LABEL></td> <td><INPUT type="radio" name="gender" value="Male"> Male
+   <INPUT type="radio" name="gender" value="Female"> Female </td>
+ </tr>
+ <tr>
+  <td><LABEL for="dob">Date of Birth:<sup style="color:#F00">*</sup> </LABEL></td>
+  <td> 
+  <select id="dd">
+        <option value="dd">DD</option>
+        <script type="text/javascript">
+   for(var i=1;i<32;i++)
+    document.write("<option value='"+i+"'>" + i+"</option> ");
+   </script>
+        </select>
+                </select>
+                 <select id="mmm">
+         <option value="mmm">MMM</option>
+         <option value="0">JAN</option>
+         <option value="1">FEB</option>
+         <option value="2">MAR </option>
+         <option value="3">APR</option>
+         <option value="4">MAY</option>
+         <option value="5">JUN</option>
+         <option value="6">JUL</option>
+         <option value="7">AUG</option>
+         <option value="8">SEP</option>
+         <option value="9">OCT</option>
+         <option value="10">NOV</option>
+         <option value="11">DEC</option>
+        </select>
+        <select id="yyyy">
+           <option value="yyyy"selected>YYYY</option>
+        <script type="text/javascript">
+   var dt= new Date();
+   for(var i=1979;i<=dt.getFullYear();i++)
+    document.write("<option value='"+i+"'>" + i+"</option> ");
+  </script>
+  </select>
+   
+  </td>
+ </tr>
+ <tr>
+  <td><LABEL for="address" style="text-align:left;">Address:<sup style="color:#F00">*</sup> </LABEL></td>
+  <td><textarea id="address"  name="address" rows="4" cols="20"></textarea>   
+  </td>
+  
+
+ </tr>
+ <tr>
+  <td><LABEL for="contctno">Contact Number:<sup style="color:#F00">*</sup> </LABEL></td>
+  <td><INPUT type="text" id="contctno"></td>
+ </tr>
+ <tr>
+  <td><LABEL for="email">Email:<sup style="color:red;">*</sup> </LABEL></td>
+  <td><INPUT type="text" id="email"></td>
+ </tr>
+ <tr>
+  <td></td><td><br/><INPUT type="submit" onClick="return validateForm()" value="Submit">
+  <INPUT type="reset" onClick="return confirmreset()"></td>
+ </tr>
+ 
+ <tr>
+  <td></td><td style="font-size:12px;text-align:right;"><br/><i style="color:red;font-size:12px;align:right;" >* - Mandatory</i></td>
+ </tr>
+    </table>
+ </FORM></center>
+
+
+
+</body>
+</html>
+
+
+Javascript code: validation.js 
+function validateForm()
+{
+ 
+ var x=document.forms["form1"]["firstname"];
+ if (x.value=="")
+   {
+  alert("Please enter the First name.");
+  x.focus();
+  return false;
+   }
+ 
+ else if(x.value.length>20)
+   {
+   alert("First name cannot be greater than 20 characters.");
+  x.value="";
+  x.focus();
+  return false;
+   }
+ else if ((!namepattern.test(x.value)))
+   {
+  alert("First name should contain only alphabets.");
+  x.value="";
+  x.focus();
+  return false;
+   }
+
+ x=document.forms["form1"]["lastname"];
+ if(x.value=="")
+   {
+  alert("Please enter the Last name.");
+  x.focus();
+  return false;
+ } 
+  else if(x.value.length>20)
+   {
+  alert("Last name cannot be greater than 20 characters.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+ else if (!namepattern.test(x.value))
+   {
+    alert("Last name should contain only alphabets.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+
+ if((document.form1.gender[0].checked==false)&&(document.form1.gender[1].checked==false))
+ {
+  document.form1.gender[0].focus();
+  alert("Please select a gender.");
+  return false;
+ }
+ var dd=document.form1.dd.value;
+ var mmm=document.form1.mmm.value;
+ var yyyy=document.form1.yyyy.value;
+ if(!validdate(dd,mmm,yyyy))
+ {
+  return false;
+ }
+  
+ x= document.getElementById("address");
+ if(x.value==null || x.value=="" )
+ {
+  alert("Please enter the Address.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+ else if(x.value.length<20)
+   {
+  alert("Address should be greater than 20 characters.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+
+ x=document.form1.contctno;
+ if(x.value=="")
+ {
+  alert("Please enter the Contact number.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+ else if(isNaN(x.value))
+ {
+  alert("Contact number should contain only digits.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+ else if(x.value.length!=10)
+ {
+  alert("Contact number should contain only 10 digits.(Mobile number)");
+  x.value="";
+  x.focus();
+  return false;
+ }
+ else if(!phonepattern.test(x.value))
+ {
+  alert("Invalid Contact number.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+
+ x=document.form1.email;
+ if(!emailpattern.test(x.value))
+ {
+  alert("Invalid email id.");
+  x.value="";
+  x.focus();
+  return false;
+ }
+
+ if(confirm("Do you want to submit the form?"))
+{
+alert("Registration Form Submitted Successfully.");
+}
+else
+return false;
+
+}
+function validdate(dd,mm,yyyy)
+ {
+  var dateobj = new Date(yyyy, mm, dd);
+  var datecurrent= new Date();
+  if((dateobj.getMonth()!=mm)||(dateobj.getDate()!=dd)||(dateobj.getFullYear()!=yyyy)||(dateobj>datecurrent))
+  {
+   alert("Please select a valid date.");
+   return false;
+  }
+  return true;
+ }
+ 
+ function confirmreset()
+ {
+  return confirm("Do you want to reset the form?");
+ }
